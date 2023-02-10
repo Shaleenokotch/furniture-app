@@ -17,11 +17,18 @@ class SignUpWidget extends StatefulWidget {
 
 class _SignUpWidgetState extends State<SignUpWidget> {
   bool obscurePass = true;
+
+  final formKey = GlobalKey<FormState>();
+  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8.0),
       child: Form(
+        key: formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -32,6 +39,13 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               height: SizeConfig.defaultSize * 2.5,
             ),
             TextFormField(
+              controller: usernameController,
+              validator: (value){
+                if(value!.isEmpty){
+                  return "Please provide a username";
+                }
+                return null;
+              },
               decoration: InputDecoration(
                   filled: true,
                   labelText: "Username",
@@ -44,6 +58,13 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               height: SizeConfig.defaultSize * 2,
             ),
             TextFormField(
+              controller: emailController,
+              validator: (value){
+                if(value!.isEmpty){
+                  return "Please provide a password";
+                }
+                return null;
+              },
               decoration: InputDecoration(
                   filled: true,
                   labelText: "Email",
@@ -56,7 +77,14 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               height: SizeConfig.defaultSize * 2,
             ),
             TextFormField(
+              controller: passwordController,
                 obscureText: obscurePass,
+                validator: (value){
+                  if(value!.isEmpty){
+                    return "Please provide a password";
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
                     filled: true,
                     labelText: "Password",

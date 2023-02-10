@@ -17,6 +17,11 @@ class LoginWidget extends StatefulWidget {
 
 class _LoginWidgetState extends State<LoginWidget> {
   bool obscurePass = true;
+
+  final formKey = GlobalKey<FormState>();
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,6 +37,13 @@ class _LoginWidgetState extends State<LoginWidget> {
               height: SizeConfig.defaultSize * 2,
             ),
             TextFormField(
+              controller: usernameController,
+              validator: (value){
+                if(value!.isEmpty){
+                  return "Please provide a username";
+                }
+                return null;
+              },
               decoration: InputDecoration(
                   filled: true,
                   labelText: "Username",
@@ -44,7 +56,14 @@ class _LoginWidgetState extends State<LoginWidget> {
               height: SizeConfig.defaultSize * 2,
             ),
             TextFormField(
+              controller: passwordController,
               obscureText: obscurePass,
+              validator: (value){
+                if(value!.isEmpty){
+                  return "Please provide a password";
+                }
+                return null;
+              },
               decoration: InputDecoration(
                   filled: true,
                   labelText: "Password",
